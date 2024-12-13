@@ -1,0 +1,83 @@
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+#content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Header Styles */
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.nav-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
+/* Menu Styles */
+.vegs-item, .meat-item, .juice-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.vegs-item p, .meat-item p, .juice-item p {
+  margin: 0;
+}
+
+.vegs-item p:first-child, .meat-item p:first-child, .juice-item p:first-child {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.vegs-item p:last-child, .meat-item p:last-child, .juice-item p:last-child {
+  color: #888;
+  font-size: 16px;
+}

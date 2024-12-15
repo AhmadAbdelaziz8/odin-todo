@@ -2,7 +2,7 @@
 import { addProject, projectsArray } from "./todo-logic";
 import { renderContent } from "./render-content";
 // access buttons
-const addProjectButton = document.querySelector(".add-project");
+const addProjectButton = document.querySelector("#add-project-button");
 const projectsContent = document.querySelector(".projects-list");
 
 // show projects

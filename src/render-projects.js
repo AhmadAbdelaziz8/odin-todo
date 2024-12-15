@@ -3,12 +3,11 @@ import { addProject, projectsArray } from "./todo-logic";
 import { renderContent } from "./render-content";
 // access buttons
 const addProjectButton = document.querySelector(".add-project");
-const content = document.querySelector(".content-container");
-const projectsContent = document.querySelector(".projects-section");
+const projectsContent = document.querySelector(".projects-list");
 
 // show projects
 function displayProjects() {
-  projectsContent.innerHTML === "" ? null : "";
+  projectsContent.innerHTML = "";
   projectsArray.forEach((project) => {
     // project tile container
     const projectTile = document.createElement("div");
@@ -53,14 +52,20 @@ function displayProjectForm() {
   projectForm.append(formTitle, projectTitleInput, submitButton);
   projectsContent.appendChild(projectForm);
 
+  // Disable add project button
+  addProjectButton.disabled = true;
+
   // Add event listener to submit button
   submitButton.addEventListener("click", () => {
     const projectTitle = projectTitleInput.value.trim();
     if (projectTitle) {
       addProject(projectTitle);
       displayProjects();
-      projectsContent.removeChild(projectForm);
-      projectForm = null;
+      if (projectsContent.contains(projectForm)) {
+        projectsContent.removeChild(projectForm);
+        projectForm = null;
+      }
+      addProjectButton.disabled = false;
     }
   });
 }

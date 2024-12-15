@@ -102,3 +102,13 @@ footer {
   color: var(--primary-light);
   padding: 20px;
 }
+
+button {
+  width: auto;
+  height: auto;
+  border: none;
+  background-color: var(--primary-dark);
+  color: var(--primary-light);
+  border-radius: 15px;
+  padding: 10px;
+}

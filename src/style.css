@@ -81,6 +81,7 @@ header h1 {
 .menu-item img {
   width: 24px;
   height: 24px;
+  margin-right: 8px; /* Added margin-right */
 }
 
 .menu-item span {
@@ -212,7 +213,7 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#add-project-button {
+.add-project-button {
   color: var(--background-color);
   max-width: 150px;
 }
@@ -248,8 +249,9 @@ footer {
 /* Tile styles */
 .todo-item {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   grid-template-rows: 1fr 1fr;
+  gap: 10px;
   align-items: center;
   border: 1px solid #ccc;
   padding: var(--tile-padding);
@@ -261,15 +263,16 @@ footer {
 .todo-item h4 {
   grid-column: 2/3;
 }
-.todo-item p {
+.todo-item p:not(.todo-due-date, .todo-priority) {
   grid-column: 2/3;
   grid-row: 2/3;
 }
 
-.todo-item p,
-.todo-item h4 {
+.todo-item h4,
+.todo-item p {
   align-self: self-start;
 }
+
 .todo-checkbox {
   grid-column: 1/2;
   grid-row: 1/-1;
@@ -280,9 +283,35 @@ footer {
   background-color: rgb(191, 15, 15);
   color: white;
   border: none;
-  grid-area: 1/3/-1/4;
+  grid-area: 1/4/-1/5;
 
   /* padding: 5px 10px; */
   cursor: pointer;
   margin-left: auto; /* Push to the right */
+}
+
+/* Styles for date and priority */
+.todo-due-date {
+  grid-column: 3/4;
+  grid-row: 1/2;
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
+.todo-priority {
+  font-weight: 600;
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+
+.todo-priority.low {
+  color: green;
+}
+
+.todo-priority.mid {
+  color: orange;
+}
+
+.todo-priority.high {
+  color: red;
 }

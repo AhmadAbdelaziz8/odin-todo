@@ -7,7 +7,12 @@ class Todo {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
+    // if (["low", "mid", "high"].includes(priority)) {
     this.priority = priority;
+    // } else {
+    // throw new Error("Invalid priority value");
+    // }
+    // }
   }
 }
 

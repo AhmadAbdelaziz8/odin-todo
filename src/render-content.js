@@ -26,10 +26,16 @@ function createTodoForm() {
   todoDueDateInput.placeholder = "Due Date";
   todoDueDateInput.className = "todo-due-date-input";
 
-  const todoPriorityInput = document.createElement("input");
-  todoPriorityInput.type = "text";
-  todoPriorityInput.placeholder = "Priority";
-  todoPriorityInput.className = "todo-priority-input";
+  const todoPrioritySelect = document.createElement("select");
+  todoPrioritySelect.className = "todo-priority-select";
+
+  const priorityOptions = ["low", "mid", "high"];
+  priorityOptions.forEach((option) => {
+    const optionElement = document.createElement("option");
+    optionElement.value = option;
+    optionElement.text = option;
+    todoPrioritySelect.appendChild(optionElement);
+  });
 
   const submitButton = document.createElement("button");
   submitButton.textContent = "Create Todo";
@@ -41,7 +47,7 @@ function createTodoForm() {
     todoTitleInput,
     todoDescriptionInput,
     todoDueDateInput,
-    todoPriorityInput,
+    todoPrioritySelect,
     submitButton
   );
 
@@ -50,7 +56,7 @@ function createTodoForm() {
     todoTitleInput,
     todoDescriptionInput,
     todoDueDateInput,
-    todoPriorityInput,
+    todoPrioritySelect,
     submitButton,
   };
 }
@@ -61,13 +67,13 @@ function handleTodoFormSubmit(
   todoTitleInput,
   todoDescriptionInput,
   todoDueDateInput,
-  todoPriorityInput,
+  todoPrioritySelect,
   todoForm
 ) {
   const todoTitle = todoTitleInput.value.trim();
   const todoDescription = todoDescriptionInput.value.trim();
   const todoDueDate = todoDueDateInput.value.trim();
-  const todoPriority = todoPriorityInput.value.trim();
+  const todoPriority = todoPrioritySelect.value;
 
   if (!todoTitle) {
     alert("Please enter a to-do title.");
@@ -75,6 +81,8 @@ function handleTodoFormSubmit(
   }
 
   addTodo(project, todoTitle, todoDescription, todoDueDate, todoPriority);
+  console.log("Selected priority:", todoPriority);
+
   displayTodos(project);
   content.removeChild(todoForm);
 }
@@ -86,7 +94,7 @@ function displayTodoForm(project) {
     todoTitleInput,
     todoDescriptionInput,
     todoDueDateInput,
-    todoPriorityInput,
+    todoPrioritySelect,
     submitButton,
   } = createTodoForm();
 
@@ -97,7 +105,7 @@ function displayTodoForm(project) {
       todoTitleInput,
       todoDescriptionInput,
       todoDueDateInput,
-      todoPriorityInput,
+      todoPrioritySelect,
       todoForm
     )
   );
@@ -112,6 +120,12 @@ function displayTodos(project) {
   todoContainer.className = "todo-container";
 
   if (project && project.todoList) {
+    // Sort the todoList by priority (high > mid > low)
+    project.todoList.sort((a, b) => {
+      const priorityOrder = { high: 3, mid: 2, low: 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    });
+
     project.todoList.forEach((todo) => {
       const todoItem = document.createElement("div");
       todoItem.className = "todo-item"; // Added tile class
@@ -127,6 +141,14 @@ function displayTodos(project) {
       const todoDescription = document.createElement("p");
       todoDescription.textContent = todo.description;
 
+      const todoDueDate = document.createElement("p");
+      todoDueDate.className = "todo-due-date";
+      todoDueDate.textContent = `Due Date: ${todo.dueDate}`;
+
+      const todoPriority = document.createElement("p");
+      todoPriority.className = "todo-priority";
+      todoPriority.textContent = `Priority: ${todo.priority}`;
+
       // add delete button
       const deleteTodoButton = document.createElement("button");
       deleteTodoButton.textContent = "delete TODO";
@@ -136,7 +158,14 @@ function displayTodos(project) {
         todoContainer.removeChild(todoItem); // Corrected remove method
       });
 
-      todoItem.append(checkbox, todoTitle, todoDescription, deleteTodoButton);
+      todoItem.append(
+        checkbox,
+        todoTitle,
+        todoDescription,
+        todoDueDate,
+        todoPriority,
+        deleteTodoButton
+      );
       todoContainer.appendChild(todoItem);
     });
   }

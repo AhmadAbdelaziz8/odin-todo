@@ -1,5 +1,5 @@
 // access elements
-import { addTodo } from "./todo-logic";
+import { addTodo, deleteTodo } from "./todo-logic";
 const content = document.querySelector(".content-container");
 
 // Display todo form
@@ -78,7 +78,14 @@ function displayTodos(project) {
       const todoDescription = document.createElement("p");
       todoDescription.textContent = todo.description;
 
-      todoItem.append(todoTitle, todoDescription);
+      const deleteTodoButton = document.createElement("button");
+      deleteTodoButton.className = "delete-button";
+      deleteTodoButton.addEventListener("click", () => {
+        deleteTodo(project, todo.id);
+        todoContainer.remove(todoItem);
+      });
+
+      todoItem.append(todoTitle, todoDescription, deleteTodoButton);
       todoContainer.appendChild(todoItem);
     });
   }
@@ -96,7 +103,7 @@ function renderContent(project) {
 
   const addTaskButton = document.createElement("button");
   addTaskButton.textContent = "Add Task";
-  addTaskButton.className = 'addTaskButton'
+  addTaskButton.className = "addTaskButton";
   addTaskButton.addEventListener("click", () => {
     if (!todoForm) {
       displayTodoForm(project);

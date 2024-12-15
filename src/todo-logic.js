@@ -19,9 +19,7 @@ class Project {
   }
 }
 // create array of projects
-let projectsArray = [
-  // new Project("sayed", [new Todo("sayed", "sayed")])
-];
+let projectsArray = [new Project("sayed", [new Todo("sayed", "sayed")])];
 
 // add project function
 function addProject(title) {
@@ -33,6 +31,7 @@ function addProject(title) {
 function addTodo(project, title, description, dueDate, priority) {
   let newTodo = new Todo(title, description, dueDate, priority);
   project.todoList.push(newTodo);
+  console.log(project);
 }
 // delete todo function
 function deleteTodo(project, todoId) {

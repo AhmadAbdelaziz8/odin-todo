@@ -1,11 +1,11 @@
 import { addTodo, deleteTodo } from "./todo-logic";
+
+// Access the content container element
 const content = document.querySelector(".content-container");
 
-// Display todo form
-let todoForm = null;
-function displayTodoForm(project) {
-  // Create form elements
-  todoForm = document.createElement("div");
+// Function to create the to-do form elements
+function createTodoForm() {
+  const todoForm = document.createElement("div");
   todoForm.className = "todo-form";
 
   const formTitle = document.createElement("h3");
@@ -44,23 +44,69 @@ function displayTodoForm(project) {
     todoPriorityInput,
     submitButton
   );
-  content.appendChild(todoForm);
 
-  // Add event listener to submit button
-  submitButton.addEventListener("click", () => {
-    const todoTitle = todoTitleInput.value.trim();
-    const todoDescription = todoDescriptionInput.value.trim();
-    const todoDueDate = todoDueDateInput.value.trim();
-    const todoPriority = todoPriorityInput.value.trim();
-    if (todoTitle) {
-      addTodo(project, todoTitle, todoDescription, todoDueDate, todoPriority);
-      displayTodos(project);
-      content.removeChild(todoForm);
-      todoForm = null;
-    }
-  });
+  return {
+    todoForm,
+    todoTitleInput,
+    todoDescriptionInput,
+    todoDueDateInput,
+    todoPriorityInput,
+    submitButton,
+  };
 }
 
+// Function to handle to-do form submission
+function handleTodoFormSubmit(
+  project,
+  todoTitleInput,
+  todoDescriptionInput,
+  todoDueDateInput,
+  todoPriorityInput,
+  todoForm
+) {
+  const todoTitle = todoTitleInput.value.trim();
+  const todoDescription = todoDescriptionInput.value.trim();
+  const todoDueDate = todoDueDateInput.value.trim();
+  const todoPriority = todoPriorityInput.value.trim();
+
+  if (!todoTitle) {
+    alert("Please enter a to-do title.");
+    return;
+  }
+
+  addTodo(project, todoTitle, todoDescription, todoDueDate, todoPriority);
+  displayTodos(project);
+  content.removeChild(todoForm);
+}
+
+// Function to display the to-do form
+function displayTodoForm(project) {
+  const {
+    todoForm,
+    todoTitleInput,
+    todoDescriptionInput,
+    todoDueDateInput,
+    todoPriorityInput,
+    submitButton,
+  } = createTodoForm();
+
+  // Add event listener to submit button
+  submitButton.addEventListener("click", () =>
+    handleTodoFormSubmit(
+      project,
+      todoTitleInput,
+      todoDescriptionInput,
+      todoDueDateInput,
+      todoPriorityInput,
+      todoForm
+    )
+  );
+
+  // Append the form to the content container
+  content.appendChild(todoForm);
+}
+
+// Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");
   todoContainer.className = "todo-container";
@@ -98,6 +144,7 @@ function displayTodos(project) {
   content.appendChild(todoContainer);
 }
 
+// Function to render the main content for a project
 function renderContent(project) {
   content.innerHTML = "";
 
@@ -110,9 +157,7 @@ function renderContent(project) {
   addTaskButton.textContent = "Add Task";
   addTaskButton.className = "add-task-button";
   addTaskButton.addEventListener("click", () => {
-    if (!todoForm) {
-      displayTodoForm(project);
-    }
+    displayTodoForm(project);
   });
 
   content.append(projectTitle, line, addTaskButton);

@@ -1,15 +1,17 @@
-// import
+// Import necessary functions and data
 import { addProject, projectsArray } from "./todo-logic";
 import { renderContent } from "./render-content";
-// access buttons
+
+// Access DOM elements
 const addProjectButton = document.querySelector("#add-project-button");
 const projectsContent = document.querySelector(".projects-list");
 
-// show projects
+// Function to display all projects
 function displayProjects() {
-  projectsContent.innerHTML = "";
+  projectsContent.innerHTML = ""; // Clear existing content
+
   projectsArray.forEach((project) => {
-    // project tile container
+    // Create project tile
     const projectTile = document.createElement("div");
     projectTile.className = "project-tile";
     projectTile.dataset.projectId = project.id;
@@ -17,23 +19,23 @@ function displayProjects() {
     const projectTileIcon = document.createElement("img");
     const projectTileName = document.createElement("p");
     projectTileName.textContent = project.title;
-    // add the elements to the tile
+
+    // Add elements to the tile
     projectTile.append(projectTileIcon, projectTileName);
 
+    // Add event listener to render project content when clicked
     projectTile.addEventListener("click", () => {
       renderContent(project);
     });
 
-    // add the tile itself to the projects content
+    // Add the tile to the projects content
     projectsContent.appendChild(projectTile);
   });
 }
 
-// Display project form
-let projectForm = null;
-function displayProjectForm() {
-  // Create form elements
-  projectForm = document.createElement("div");
+// Function to create the project form elements
+function createProjectForm() {
+  const projectForm = document.createElement("div");
   projectForm.className = "project-form";
 
   const formTitle = document.createElement("h3");
@@ -50,26 +52,46 @@ function displayProjectForm() {
 
   // Append form elements
   projectForm.append(formTitle, projectTitleInput, submitButton);
-  projectsContent.appendChild(projectForm);
 
-  // Disable add project button
-  addProjectButton.disabled = true;
-
-  // Add event listener to submit button
-  submitButton.addEventListener("click", () => {
-    const projectTitle = projectTitleInput.value.trim();
-    if (projectTitle) {
-      addProject(projectTitle);
-      displayProjects();
-      if (projectsContent.contains(projectForm)) {
-        projectsContent.removeChild(projectForm);
-        projectForm = null;
-      }
-      addProjectButton.disabled = false;
-    }
-  });
+  return { projectForm, projectTitleInput, submitButton };
 }
 
+// Function to handle project form submission
+function handleProjectFormSubmit(projectTitleInput, projectForm) {
+  const projectTitle = projectTitleInput.value.trim();
+
+  if (!projectTitle) {
+    alert("Please enter a project title.");
+    return;
+  }
+
+  addProject(projectTitle);
+  displayProjects();
+
+  if (projectsContent.contains(projectForm)) {
+    projectsContent.removeChild(projectForm);
+  }
+
+  addProjectButton.disabled = false;
+}
+
+// Function to display the project form
+function displayProjectForm() {
+  const { projectForm, projectTitleInput, submitButton } = createProjectForm();
+
+  // Add event listener to submit button
+  submitButton.addEventListener("click", () =>
+    handleProjectFormSubmit(projectTitleInput, projectForm)
+  );
+
+  // Append the form to the projects content
+  projectsContent.appendChild(projectForm);
+
+  // Disable add project button while the form is displayed
+  addProjectButton.disabled = true;
+}
+
+// Add event listener to the "Add Project" button
 addProjectButton.addEventListener("click", () => {
   displayProjectForm();
 });

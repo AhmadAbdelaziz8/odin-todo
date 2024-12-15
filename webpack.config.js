@@ -22,11 +22,18 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: ["file-loader"],
+        use: "file-loader", // or 'url-loader'
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: "assets/resource",
       },
       {
         test: /\.html$/i,
         loader: "html-loader",
+        options: {
+          esModule: false,
+        },
       },
     ],
   },

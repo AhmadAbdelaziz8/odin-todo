@@ -1,5 +1,9 @@
+let projectIdCounter = 0;
+let todoIdCounter = 0;
+
 class Todo {
   constructor(title, description, dueDate, priority) {
+    this.id = todoIdCounter++;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -9,15 +13,13 @@ class Todo {
 
 class Project {
   constructor(title, todoList) {
+    this.id = projectIdCounter++;
     this.title = title;
-    this.todoList = todoList;
+    this.todoList = todoList || []; // Initialize todoList to an empty array if not provided
   }
 }
 // create array of projects
 let projectsArray = [];
-
-// create array of projects
-let projectTodoList = [];
 
 // add project function
 function addProject(title) {
@@ -26,9 +28,9 @@ function addProject(title) {
 }
 
 // add Todo function
-function addTodo(title, description, dueDate, priority) {
+function addTodo(project, title, description, dueDate, priority) {
   let newTodo = new Todo(title, description, dueDate, priority);
-  projectTodoList.push(newTodo);
+  project.todoList.push(newTodo);
 }
 
 export { addTodo, addProject, projectsArray };

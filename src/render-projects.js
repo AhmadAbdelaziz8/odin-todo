@@ -1,5 +1,6 @@
 // import
-import { TodoList, addProject, projectsArray } from "./todo";
+import { addProject, projectsArray } from "./todo-logic";
+import { renderContent } from "./render-content";
 // access buttons
 const addProjectButton = document.querySelector(".add-project");
 const content = document.querySelector(".content-container");
@@ -7,16 +8,23 @@ const projectsContent = document.querySelector(".projects-section");
 
 // show projects
 function displayProjects() {
+  projectsContent.innerHTML === "" ? null : "";
   projectsArray.forEach((project) => {
     // project tile container
     const projectTile = document.createElement("div");
     projectTile.className = "project-tile";
+    projectTile.dataset.projectId = project.id;
 
     const projectTileIcon = document.createElement("img");
     const projectTileName = document.createElement("p");
     projectTileName.textContent = project.title;
     // add the elements to the tile
     projectTile.append(projectTileIcon, projectTileName);
+
+    projectTile.addEventListener("click", () => {
+      renderContent(project);
+    });
+
     // add the tile itself to the projects content
     projectsContent.appendChild(projectTile);
   });
@@ -61,9 +69,4 @@ addProjectButton.addEventListener("click", () => {
   displayProjectForm();
 });
 
-// display content function
-function displayContent() {
-  content.appendChild(addProjectButton);
-}
-
-export { addProjectButton, displayContent, displayProjects };
+export { addProjectButton, displayProjects };

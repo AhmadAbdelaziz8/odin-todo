@@ -83,7 +83,8 @@ function handleTodoFormSubmit(
   addTodo(project, todoTitle, todoDescription, todoDueDate, todoPriority);
   console.log("Selected priority:", todoPriority);
 
-  displayTodos(project);
+  // Append new todo instead of re-rendering
+  appendNewTodo(project);
   content.removeChild(todoForm);
 }
 
@@ -114,10 +115,70 @@ function displayTodoForm(project) {
   content.appendChild(todoForm);
 }
 
+// Function to append a new todo to the existing container
+function appendNewTodo(project) {
+  const todoContainer = document.querySelector(".todo-container");
+  if (!todoContainer) {
+    return; // No container yet, displayTodos will handle it
+  }
+
+  if (project && project.todoList) {
+    // Sort the todoList by priority (high > mid > low)
+    project.todoList.sort((a, b) => {
+      const priorityOrder = { high: 3, mid: 2, low: 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    });
+
+    const lastTodo = project.todoList[project.todoList.length - 1];
+    const todoItem = document.createElement("div");
+    todoItem.className = "todo-item"; // Added tile class
+    todoItem.dataset.todoId = lastTodo.id;
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "todo-checkbox";
+
+    const todoTitle = document.createElement("h4");
+    todoTitle.textContent = lastTodo.title;
+
+    const todoDescription = document.createElement("p");
+    todoDescription.textContent = lastTodo.description;
+
+    const todoDueDate = document.createElement("p");
+    todoDueDate.className = "todo-due-date";
+    todoDueDate.textContent = `Due Date: ${lastTodo.dueDate}`;
+
+    const todoPriority = document.createElement("p");
+    todoPriority.className = "todo-priority";
+    todoPriority.textContent = `Priority: ${lastTodo.priority}`;
+
+    // add delete button
+    const deleteTodoButton = document.createElement("button");
+    deleteTodoButton.textContent = "delete TODO";
+    deleteTodoButton.className = "delete-button";
+    deleteTodoButton.addEventListener("click", () => {
+      deleteTodo(project, lastTodo.id);
+      todoContainer.removeChild(todoItem); // Corrected remove method
+    });
+
+    todoItem.append(
+      checkbox,
+      todoTitle,
+      todoDescription,
+      todoDueDate,
+      todoPriority,
+      deleteTodoButton
+    );
+    todoContainer.appendChild(todoItem);
+  }
+}
+
+
 // Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");
   todoContainer.className = "todo-container";
+  content.appendChild(todoContainer); // Append container first
 
   if (project && project.todoList) {
     // Sort the todoList by priority (high > mid > low)
@@ -169,8 +230,6 @@ function displayTodos(project) {
       todoContainer.appendChild(todoItem);
     });
   }
-
-  content.appendChild(todoContainer);
 }
 
 // Function to render the main content for a project

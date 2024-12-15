@@ -1,5 +1,6 @@
 import "./style.css";
-import { addProject, addTodo, projectsArray } from "./todo-logic";
+import { renderContent } from "./render-content";
 import { displayProjects } from "./render-projects";
+
 
 displayProjects();

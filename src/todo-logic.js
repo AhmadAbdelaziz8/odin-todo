@@ -15,11 +15,13 @@ class Project {
   constructor(title, todoList) {
     this.id = projectIdCounter++;
     this.title = title;
-    this.todoList = todoList || []; // Initialize todoList to an empty array if not provided
+    this.todoList = todoList || [];
   }
 }
 // create array of projects
-let projectsArray = [];
+let projectsArray = [
+  // new Project("sayed", [new Todo("sayed", "sayed")])
+];
 
 // add project function
 function addProject(title) {
@@ -32,5 +34,8 @@ function addTodo(project, title, description, dueDate, priority) {
   let newTodo = new Todo(title, description, dueDate, priority);
   project.todoList.push(newTodo);
 }
-
-export { addTodo, addProject, projectsArray };
+// delete todo function
+function deleteTodo(project, todoId) {
+  project.todoList = project.todoList.filter((todo) => todo.id !== todoId);
+}
+export { addTodo, addProject, deleteTodo, projectsArray };

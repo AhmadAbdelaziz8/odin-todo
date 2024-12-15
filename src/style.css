@@ -202,6 +202,9 @@ button {
   background-color: var(--primary-color);
   max-width: 150px;
 }
+.add-task-button {
+  background-color: var(--primary-dark);
+}
 
 .submit-project,
 .submit-todo {
@@ -228,4 +231,9 @@ footer {
   background-color: var(--primary-dark);
   color: var(--primary-light);
   padding: 20px;
+}
+
+.addTaskButton {
+  background-color: var(--primary-dark);
+  color: var(--primary-light);
 }

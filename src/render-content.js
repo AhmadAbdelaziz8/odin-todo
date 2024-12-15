@@ -87,7 +87,6 @@ function displayTodos(project) {
 }
 
 function renderContent(project) {
-  console.log("Project:", project);
   content.innerHTML = "";
 
   const projectTitle = document.createElement("h1");
@@ -97,6 +96,7 @@ function renderContent(project) {
 
   const addTaskButton = document.createElement("button");
   addTaskButton.textContent = "Add Task";
+  addTaskButton.className = 'addTaskButton'
   addTaskButton.addEventListener("click", () => {
     if (!todoForm) {
       displayTodoForm(project);

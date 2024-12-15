@@ -1,4 +1,3 @@
-// access elements
 import { addTodo, deleteTodo } from "./todo-logic";
 const content = document.querySelector(".content-container");
 
@@ -69,8 +68,12 @@ function displayTodos(project) {
   if (project && project.todoList) {
     project.todoList.forEach((todo) => {
       const todoItem = document.createElement("div");
-      todoItem.className = "todo-item";
+      todoItem.className = "todo-item"; // Added tile class
       todoItem.dataset.todoId = todo.id;
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "todo-checkbox";
 
       const todoTitle = document.createElement("h4");
       todoTitle.textContent = todo.title;
@@ -78,14 +81,16 @@ function displayTodos(project) {
       const todoDescription = document.createElement("p");
       todoDescription.textContent = todo.description;
 
+      // add delete button
       const deleteTodoButton = document.createElement("button");
+      deleteTodoButton.textContent = "delete TODO";
       deleteTodoButton.className = "delete-button";
       deleteTodoButton.addEventListener("click", () => {
         deleteTodo(project, todo.id);
-        todoContainer.remove(todoItem);
+        todoContainer.removeChild(todoItem); // Corrected remove method
       });
 
-      todoItem.append(todoTitle, todoDescription, deleteTodoButton);
+      todoItem.append(checkbox, todoTitle, todoDescription, deleteTodoButton);
       todoContainer.appendChild(todoItem);
     });
   }

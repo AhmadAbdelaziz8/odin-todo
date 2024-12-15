@@ -108,7 +108,7 @@ function renderContent(project) {
 
   const addTaskButton = document.createElement("button");
   addTaskButton.textContent = "Add Task";
-  addTaskButton.className = "addTaskButton";
+  addTaskButton.className = "add-task-button";
   addTaskButton.addEventListener("click", () => {
     if (!todoForm) {
       displayTodoForm(project);

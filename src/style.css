@@ -195,7 +195,7 @@ input[type="date"] {
 button {
   border: none;
   color: var(--primary-light);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 600;
@@ -239,7 +239,7 @@ footer {
   padding: 20px;
 }
 
-.addTaskButton {
+.add-task-button {
   background-color: var(--primary-dark);
   color: var(--primary-light);
 }
@@ -249,13 +249,11 @@ footer {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr 1fr;
-  place-items: center;
   align-items: center;
   border: 1px solid #ccc;
   padding: var(--tile-padding);
   margin-bottom: var(--tile-margin-bottom);
   border-radius: var(--tile-border-radius);
-  /* width: 300px; Adjust as needed */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Added box shadow */
 }
 
@@ -268,7 +266,7 @@ footer {
 }
 
 .todo-item p,
-.todo-item h4{
+.todo-item h4 {
   align-self: self-start;
 }
 .todo-checkbox {

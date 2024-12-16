@@ -165,6 +165,7 @@ header h1 {
 }
 
 .project-tile img {
+  background-image: url("./assets/project.svg");
   width: 24px;
   height: 24px;
 }
@@ -335,4 +336,5 @@ footer {
   width: 24px;
   height: 24px;
   background-size: cover;
+  filter: invert(40%) sepia(70%) saturate(2000%) hue-rotate(160deg);
 }

@@ -173,7 +173,6 @@ function appendNewTodo(project) {
   }
 }
 
-
 // Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");

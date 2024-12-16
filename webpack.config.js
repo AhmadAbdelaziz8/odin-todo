@@ -21,20 +21,15 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.svg$/,
-        use: "file-loader", // or 'url-loader'
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif)$/i,
-        type: "assets/resource",
-        use: "file-loader",
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[name].[hash][ext]",
+        },
       },
       {
         test: /\.html$/i,
         loader: "html-loader",
-        options: {
-          esModule: false,
-        },
       },
     ],
   },

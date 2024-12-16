@@ -78,11 +78,11 @@ header h1 {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.menu-item img {
+/* .menu-item img {
   width: 24px;
   height: 24px;
-  margin-right: 8px; /* Added margin-right */
-}
+  margin-right: 8px; 
+} */
 
 .menu-item span {
   font-size: 14px;
@@ -314,4 +314,25 @@ footer {
 
 .todo-priority.high {
   color: red;
+}
+
+/* Icon styles */
+.icon-inbox {
+  background-image: url("./assets/inbox.svg");
+}
+
+.icon-today {
+  background-image: url("./assets/today.svg");
+}
+
+.icon-week {
+  background-image: url("./assets/week.svg");
+}
+
+.menu-item .icon-inbox,
+.menu-item .icon-today,
+.menu-item .icon-week {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
 }

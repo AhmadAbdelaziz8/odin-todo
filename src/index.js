@@ -1,8 +1,7 @@
 import "./style.css";
-import { renderContent } from "./render-content";
-import { displayProjects } from "./render-projects";
-import { projectsArray } from "./todo-logic";
-
+import { renderContent } from "./modules/render-content";
+import { displayProjects } from "./modules/render-projects";
+import { projectsArray } from "./modules/todo-logic";
 // Display projects initially
 displayProjects();
 

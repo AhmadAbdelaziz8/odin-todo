@@ -173,7 +173,7 @@ function appendNewTodo(project) {
   }
 }
 
-function createTodo(container, todo, project) {
+function createTodo(container, todo, project, trailButton) {
   const todoItem = document.createElement("div");
   todoItem.className = "todo-item"; // Added tile class
   todoItem.dataset.todoId = todo.id;
@@ -196,15 +196,7 @@ function createTodo(container, todo, project) {
   todoPriority.className = "todo-priority";
   todoPriority.textContent = `Priority: ${todo.priority}`;
 
-  // add delete button
-  const deleteTodoButton = document.createElement("button");
-  deleteTodoButton.textContent = "delete TODO";
-  deleteTodoButton.className = "delete-button";
-  deleteTodoButton.addEventListener("click", () => {
-    deleteTodo(project, todo.id);
-    container.removeChild(todoItem); // Corrected remove method
-  });
-
+  const deleteTodoButton = trailButton(project, todo, container, todoItem);
   todoItem.append(
     checkbox,
     todoTitle,
@@ -215,6 +207,19 @@ function createTodo(container, todo, project) {
   );
   container.appendChild(todoItem);
 }
+
+function deleteButton(project, todo, container, todoItem) {
+  // add delete button
+  const deleteTodoButton = document.createElement("button");
+  deleteTodoButton.textContent = "delete TODO";
+  deleteTodoButton.className = "delete-button";
+  deleteTodoButton.addEventListener("click", () => {
+    deleteTodo(project, todo.id);
+    container.removeChild(todoItem); // Corrected remove method
+  });
+  return deleteTodoButton;
+}
+
 // Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");
@@ -229,7 +234,7 @@ function displayTodos(project) {
     });
 
     project.todoList.forEach((todo) => {
-      createTodo(todoContainer, todo, project);
+      createTodo(todoContainer, todo, project, deleteButton);
     });
   }
 }

@@ -173,6 +173,48 @@ function appendNewTodo(project) {
   }
 }
 
+function createTodo(container, todo, project) {
+  const todoItem = document.createElement("div");
+  todoItem.className = "todo-item"; // Added tile class
+  todoItem.dataset.todoId = todo.id;
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "todo-checkbox";
+
+  const todoTitle = document.createElement("h4");
+  todoTitle.textContent = todo.title;
+
+  const todoDescription = document.createElement("p");
+  todoDescription.textContent = todo.description;
+
+  const todoDueDate = document.createElement("p");
+  todoDueDate.className = "todo-due-date";
+  todoDueDate.textContent = `Due Date: ${todo.dueDate}`;
+
+  const todoPriority = document.createElement("p");
+  todoPriority.className = "todo-priority";
+  todoPriority.textContent = `Priority: ${todo.priority}`;
+
+  // add delete button
+  const deleteTodoButton = document.createElement("button");
+  deleteTodoButton.textContent = "delete TODO";
+  deleteTodoButton.className = "delete-button";
+  deleteTodoButton.addEventListener("click", () => {
+    deleteTodo(project, todo.id);
+    container.removeChild(todoItem); // Corrected remove method
+  });
+
+  todoItem.append(
+    checkbox,
+    todoTitle,
+    todoDescription,
+    todoDueDate,
+    todoPriority,
+    deleteTodoButton
+  );
+  container.appendChild(todoItem);
+}
 // Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");
@@ -187,46 +229,7 @@ function displayTodos(project) {
     });
 
     project.todoList.forEach((todo) => {
-      const todoItem = document.createElement("div");
-      todoItem.className = "todo-item"; // Added tile class
-      todoItem.dataset.todoId = todo.id;
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.className = "todo-checkbox";
-
-      const todoTitle = document.createElement("h4");
-      todoTitle.textContent = todo.title;
-
-      const todoDescription = document.createElement("p");
-      todoDescription.textContent = todo.description;
-
-      const todoDueDate = document.createElement("p");
-      todoDueDate.className = "todo-due-date";
-      todoDueDate.textContent = `Due Date: ${todo.dueDate}`;
-
-      const todoPriority = document.createElement("p");
-      todoPriority.className = "todo-priority";
-      todoPriority.textContent = `Priority: ${todo.priority}`;
-
-      // add delete button
-      const deleteTodoButton = document.createElement("button");
-      deleteTodoButton.textContent = "delete TODO";
-      deleteTodoButton.className = "delete-button";
-      deleteTodoButton.addEventListener("click", () => {
-        deleteTodo(project, todo.id);
-        todoContainer.removeChild(todoItem); // Corrected remove method
-      });
-
-      todoItem.append(
-        checkbox,
-        todoTitle,
-        todoDescription,
-        todoDueDate,
-        todoPriority,
-        deleteTodoButton
-      );
-      todoContainer.appendChild(todoItem);
+      createTodo(todoContainer, todo, project);
     });
   }
 }
@@ -251,4 +254,4 @@ function renderContent(project) {
   displayTodos(project);
 }
 
-export { displayTodoForm, displayTodos, renderContent };
+export { displayTodoForm, displayTodos, renderContent, createTodo };

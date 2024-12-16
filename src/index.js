@@ -2,6 +2,7 @@ import "./style.css";
 import { renderContent } from "./modules/render-content";
 import { displayProjects } from "./modules/render-projects";
 import { projectsArray } from "./modules/todo-logic";
+import { menuButtons } from "./modules/render-inbox";
 // Display projects initially
 displayProjects();
 
@@ -9,3 +10,4 @@ displayProjects();
 if (projectsArray.length > 0) {
   renderContent(projectsArray[0]);
 }
+console.log(menuButtons);

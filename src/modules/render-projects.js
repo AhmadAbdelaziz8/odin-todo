@@ -16,7 +16,7 @@ function displayProjects() {
     projectTile.className = "project-tile";
     projectTile.dataset.projectId = project.id;
 
-    const projectTileIcon = document.createElement("img");
+    const projectTileIcon = document.createElement("div");
     const projectTileName = document.createElement("p");
     projectTileName.textContent = project.title;
 

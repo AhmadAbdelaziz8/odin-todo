@@ -34,5 +34,5 @@ function handleInboxClick() {
   content.appendChild(todoContainer);
   console.log('hey');
 }
-inboxBtn.addEventListener("click", handleInboxClick());
+inboxBtn.addEventListener("click", handleInboxClick);
 export { menuButtons };

@@ -1,5 +1,5 @@
-import { displayTodos, createTodo } from "./render-content";
-import { getTodos, getProject, projectsArray } from "./todo-logic";
+import { createTodo } from "./render-content";
+import { projectsArray } from "./todo-logic";
 
 // Get the menu items
 const menuItems = document.querySelectorAll(".menu-item");
@@ -11,8 +11,7 @@ const todayBtn = menuButtons[1];
 const content = document.querySelector(".content-container");
 const todoContainer = document.createElement("div");
 todoContainer.className = "todo-container";
-
-console.log("inboxBtn:", inboxBtn); // Log the inboxBtn element
+const weekBtn = menuButtons[2]; // Assuming the third button is for the week
 
 function getAllTodos() {
   // array of arrays of todos
@@ -46,7 +45,6 @@ function handleInboxClick() {
   console.log("hey");
 }
 inboxBtn.addEventListener("click", handleInboxClick);
-console.log("Event listener attached to inboxBtn"); // Log after attaching the listener
 
 function handleTodayBtn() {
   // Reset the containers
@@ -83,4 +81,4 @@ function handleTodayBtn() {
   content.appendChild(todoContainer);
 }
 
-// todayBtn.addEventListener("click", handleInboxClick);
+todayBtn.addEventListener("click", handleTodayBtn);

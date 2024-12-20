@@ -82,3 +82,45 @@ function handleTodayBtn() {
 }
 
 todayBtn.addEventListener("click", handleTodayBtn);
+
+function handleWeekBtn() {
+  // Reset the containers
+  content.innerHTML = "";
+  todoContainer.innerHTML = "";
+
+  // Create Title
+  const title = document.createElement("h1");
+  title.textContent = "This Week's Tasks";
+  const line = document.createElement("hr");
+
+  // Append title and line to the content
+  content.append(title, line);
+
+  // Fetch all the todos
+  let todoList = getAllTodos();
+
+  // Get today's date and calculate the date 7 days from now
+  const today = new Date();
+  const nextWeek = new Date(today);
+  nextWeek.setDate(today.getDate() + 7);
+
+  // Filter todos whose due dates fall within the next 7 days
+  const weekList = todoList.filter((todo) => {
+    const todoDate = new Date(todo.dueDate);
+    return todoDate >= today && todoDate <= nextWeek;
+  });
+
+  // Check if there are any tasks for the week
+  if (weekList.length === 0) {
+    const noTasksMessage = document.createElement("p");
+    noTasksMessage.textContent = "No tasks scheduled for this week!";
+    content.appendChild(noTasksMessage);
+    return;
+  }
+
+  // Build and append this week's todos
+  weekList.forEach((todo) => createTodo(todoContainer, todo, null, () => {}));
+  content.appendChild(todoContainer);
+}
+
+weekBtn.addEventListener("click", handleWeekBtn);

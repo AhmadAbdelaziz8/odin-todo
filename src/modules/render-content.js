@@ -8,8 +8,15 @@ function createTodoForm() {
   const todoForm = document.createElement("div");
   todoForm.className = "todo-form";
 
-  const formTitle = document.createElement("h3");
-  formTitle.textContent = "Add New Todo";
+  const formTitle = document.createElement("div");
+  formTitle.className = "form-title-bar";
+  const titleText = document.createElement("h3");
+  titleText.textContent = "Add New Todo";
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "X";
+  closeButton.className = "close-button";
+  formTitle.appendChild(titleText);
+  formTitle.appendChild(closeButton);
 
   const todoTitleInput = document.createElement("input");
   todoTitleInput.type = "text";
@@ -99,6 +106,12 @@ function displayTodoForm(project) {
     submitButton,
   } = createTodoForm();
 
+  // Add event listener to close button
+  const closeButton = todoForm.querySelector(".close-button");
+  closeButton.addEventListener("click", () => {
+    content.removeChild(todoForm);
+  });
+
   // Add event listener to submit button
   submitButton.addEventListener("click", () =>
     handleTodoFormSubmit(
@@ -173,7 +186,7 @@ function appendNewTodo(project) {
   }
 }
 
-function createTodo(container, todo,) {
+function createTodo(container, todo) {
   const todoItem = document.createElement("div");
   todoItem.className = "todo-item"; // Added tile class
   todoItem.dataset.todoId = todo.id;
@@ -214,19 +227,6 @@ function createTodo(container, todo,) {
   );
   container.appendChild(todoItem);
 }
-
-// function deleteButton(project, todo, container, todoItem) {
-//   // add delete button
-//   const deleteTodoButton = document.createElement("button");
-//   deleteTodoButton.textContent = "delete TODO";
-//   deleteTodoButton.className = "delete-button";
-//   deleteTodoButton.addEventListener("click", () => {
-//     deleteTodo(project, todo.id);
-//     container.removeChild(todoItem); // Corrected remove method
-//   });
-//   return deleteTodoButton;
-// }
-
 // Function to display to-dos for a given project
 function displayTodos(project) {
   const todoContainer = document.createElement("div");

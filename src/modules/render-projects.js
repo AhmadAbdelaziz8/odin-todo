@@ -38,8 +38,15 @@ function createProjectForm() {
   const projectForm = document.createElement("div");
   projectForm.className = "project-form";
 
-  const formTitle = document.createElement("h3");
-  formTitle.textContent = "Add New Project";
+  const formTitle = document.createElement("div");
+  formTitle.className = "form-title-bar";
+  const titleText = document.createElement("h3");
+  titleText.textContent = "Add New Project";
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "X";
+  closeButton.className = "close-button";
+  formTitle.appendChild(titleText);
+  formTitle.appendChild(closeButton);
 
   const projectTitleInput = document.createElement("input");
   projectTitleInput.type = "text";
@@ -78,6 +85,13 @@ function handleProjectFormSubmit(projectTitleInput, projectForm) {
 // Function to display the project form
 function displayProjectForm() {
   const { projectForm, projectTitleInput, submitButton } = createProjectForm();
+
+  // Add event listener to close button
+  const closeButton = projectForm.querySelector(".close-button");
+  closeButton.addEventListener("click", () => {
+    projectsContent.removeChild(projectForm);
+    addProjectButton.disabled = false;
+  });
 
   // Add event listener to submit button
   submitButton.addEventListener("click", () =>

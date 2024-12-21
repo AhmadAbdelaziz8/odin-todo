@@ -24,7 +24,7 @@ class Project {
   }
 }
 // create array of projects
-let projectsArray = [new Project("sayed", [new Todo("sayed", "sayed")])];
+let projectsArray = [];
 
 // add project function
 function addProject(title) {

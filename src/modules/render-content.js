@@ -226,6 +226,11 @@ function createTodo(container, todo) {
     deleteTodoButton
   );
   container.appendChild(todoItem);
+
+  checkbox.addEventListener("change", () => {
+    todoTitle.classList.toggle("completed");
+    todoItem.classList.toggle("completed");
+  });
 }
 // Function to display to-dos for a given project
 function displayTodos(project) {

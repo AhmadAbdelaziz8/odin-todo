@@ -36,7 +36,7 @@ function renderTodos(todoList) {
     noTasksMessage.textContent = "No tasks available!";
     content.appendChild(noTasksMessage);
   } else {
-    todoList.forEach(todo => createTodo(todoContainer, todo, null, () => {}));
+    todoList.forEach(todo => createTodo(todoContainer, todo, null,));
     content.appendChild(todoContainer);
   }
 }

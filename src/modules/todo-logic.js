@@ -39,7 +39,9 @@ function addTodo(project, title, description, dueDate, priority) {
   console.log(project);
 }
 // delete todo function
-function deleteTodo(project, todoId) {
-  project.todoList = project.todoList.filter((todo) => todo.id !== todoId);
+function deleteTodo(todoId) {
+  projectsArray.forEach((project) => {
+    project.todoList = project.todoList.filter((todo) => todo.id !== todoId);
+  });
 }
 export { addTodo, addProject, deleteTodo, projectsArray };

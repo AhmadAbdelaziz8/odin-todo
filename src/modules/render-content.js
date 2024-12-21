@@ -173,7 +173,7 @@ function appendNewTodo(project) {
   }
 }
 
-function createTodo(container, todo, project, trailButton) {
+function createTodo(container, todo,) {
   const todoItem = document.createElement("div");
   todoItem.className = "todo-item"; // Added tile class
   todoItem.dataset.todoId = todo.id;
@@ -196,7 +196,14 @@ function createTodo(container, todo, project, trailButton) {
   todoPriority.className = "todo-priority";
   todoPriority.textContent = `Priority: ${todo.priority}`;
 
-  const deleteTodoButton = trailButton(project, todo, container, todoItem);
+  const deleteTodoButton = document.createElement("button");
+  deleteTodoButton.textContent = "delete TODO";
+  deleteTodoButton.className = "delete-button";
+  deleteTodoButton.addEventListener("click", () => {
+    deleteTodo(todo.id);
+    container.removeChild(todoItem); // Corrected remove method
+  });
+  // trailButton(project, todo, container, todoItem);
   todoItem.append(
     checkbox,
     todoTitle,
@@ -208,17 +215,17 @@ function createTodo(container, todo, project, trailButton) {
   container.appendChild(todoItem);
 }
 
-function deleteButton(project, todo, container, todoItem) {
-  // add delete button
-  const deleteTodoButton = document.createElement("button");
-  deleteTodoButton.textContent = "delete TODO";
-  deleteTodoButton.className = "delete-button";
-  deleteTodoButton.addEventListener("click", () => {
-    deleteTodo(project, todo.id);
-    container.removeChild(todoItem); // Corrected remove method
-  });
-  return deleteTodoButton;
-}
+// function deleteButton(project, todo, container, todoItem) {
+//   // add delete button
+//   const deleteTodoButton = document.createElement("button");
+//   deleteTodoButton.textContent = "delete TODO";
+//   deleteTodoButton.className = "delete-button";
+//   deleteTodoButton.addEventListener("click", () => {
+//     deleteTodo(project, todo.id);
+//     container.removeChild(todoItem); // Corrected remove method
+//   });
+//   return deleteTodoButton;
+// }
 
 // Function to display to-dos for a given project
 function displayTodos(project) {
@@ -234,7 +241,7 @@ function displayTodos(project) {
     });
 
     project.todoList.forEach((todo) => {
-      createTodo(todoContainer, todo, project, deleteButton);
+      createTodo(todoContainer, todo);
     });
   }
 }

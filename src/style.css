@@ -226,6 +226,37 @@ input[type="date"] {
   box-sizing: border-box;
 }
 
+input[type="text"],
+input[type="date"],
+.todo-priority-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.todo-priority-select {
+  background-color: var(--secondary-bg);
+  color: var(--primary-text);
+  font-size: 16px;
+  appearance: none; /* Customize default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+/* Custom dropdown arrow (optional) */
+.todo-priority-select:after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 button {
   border: none;
   color: var(--primary-text); /* Updated */

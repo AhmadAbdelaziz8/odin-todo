@@ -344,3 +344,42 @@ footer {
   background-size: cover;
   filter: invert(40%) sepia(70%) saturate(2000%) hue-rotate(160deg);
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+  }
+  .sidebar {
+    grid-row: 2/3;
+    grid-column: 1 / -1;
+  }
+  .content-container {
+    grid-column: 1/-1;
+    grid-row: 3/4;
+    padding: 1em;
+  }
+  footer {
+    display: none;
+  }
+  .project-tile {
+    max-width: 100%;
+  }
+  .todo-form,
+  .project-form {
+    width: 100%;
+  }
+  button {
+    /* max-width: 100%; */
+    max-width: 300px;
+    align-self: center;
+  }
+  .content-container p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Additional styles for smaller screens */
+}
